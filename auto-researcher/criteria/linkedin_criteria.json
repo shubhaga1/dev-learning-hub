@@ -1,0 +1,29 @@
+[
+  {
+    "id": "hook_length",
+    "description": "Hook (first line) must be under 136 characters",
+    "type": "deterministic"
+  },
+  {
+    "id": "no_asterisk_bullets",
+    "description": "Bullet points must use hyphens (-), never asterisks (*)",
+    "type": "deterministic"
+  },
+  {
+    "id": "short_paragraphs",
+    "description": "No paragraph should exceed 3 sentences",
+    "type": "deterministic"
+  },
+  {
+    "id": "has_cta",
+    "description": "Post must end with a clear call to action (question, follow request, or direct prompt)",
+    "type": "ai_judge",
+    "prompt": "Does this LinkedIn post end with a clear call to action such as a question to the reader, a follow request, or a direct prompt to engage? Answer YES or NO, then one sentence of reasoning."
+  },
+  {
+    "id": "engaging_hook",
+    "description": "Hook must create curiosity or promise clear value — no generic openers",
+    "type": "ai_judge",
+    "prompt": "Is the opening line of this LinkedIn post attention-grabbing? It should create curiosity, make a bold claim, or promise clear value. Generic openers like 'In today's world...' or 'I've been thinking about...' fail. Answer YES or NO, then one sentence of reasoning."
+  }
+]
