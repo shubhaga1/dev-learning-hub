@@ -34,6 +34,24 @@ except ImportError:
 
 ROOT = Path(__file__).parent
 
+# Bucket folders — each contains numbered course subfolders
+BUCKETS = [
+    "01-system-design",
+    "02-leadership-behavioral",
+    "03-ml-ai",
+    "04-algorithms-ds",
+    "05-java",
+    "06-python",
+    "07-graphql-api",
+    "08-javascript-typescript",
+    "09-react-frontend",
+    "10-web-html-css",
+    "11-go",
+    "12-bash-linux",
+    "13-other-languages",
+    "14-blockchain-other",
+]
+
 
 def numeric_sort_key(filename: str) -> tuple:
     """Sort '10_Foo.pdf' after '2_Bar.pdf' — by leading number, not alphabetically."""
@@ -94,11 +112,23 @@ def merge_course(folder: Path) -> dict:
     }
 
 
+def collect_course_folders() -> list:
+    """Collect all course folders across all buckets, in priority order."""
+    folders = []
+    for bucket in BUCKETS:
+        bucket_path = ROOT / bucket
+        if not bucket_path.exists():
+            continue
+        course_dirs = sorted([
+            d for d in bucket_path.iterdir()
+            if d.is_dir() and not d.name.startswith(".")
+        ])
+        folders.extend(course_dirs)
+    return folders
+
+
 def main():
-    folders = sorted([
-        d for d in ROOT.iterdir()
-        if d.is_dir() and not d.name.startswith(".")
-    ])
+    folders = collect_course_folders()
 
     total    = len(folders)
     ok       = 0
