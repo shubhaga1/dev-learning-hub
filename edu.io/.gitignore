@@ -1,6 +1,6 @@
-# Ignore all PDF files — originals and merged are too large for git
-*.pdf
-*.PDF
+# All PDFs tracked (individual lesson PDFs deleted, only merged remain)
+# One file excluded — exceeds GitHub's 100MB limit (keep locally)
+04-algorithms-ds/03_Data-Structures-Algorithms-Python.pdf
 
 # Ignore venv
 .venv/
