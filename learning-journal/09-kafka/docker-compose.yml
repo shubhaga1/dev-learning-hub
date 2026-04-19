@@ -1,0 +1,46 @@
+version: '3.8'
+
+# ============================================================
+# Kafka + Zookeeper setup
+#
+# Start:   docker-compose up -d
+# Stop:    docker-compose down
+# Logs:    docker-compose logs -f kafka
+# ============================================================
+
+services:
+
+  # ─────────────────────────────────────────
+  # ZOOKEEPER
+  # Kafka's coordinator — tracks brokers,
+  # topics, partitions, and leader elections.
+  # Think of it as Kafka's "manager office".
+  # ─────────────────────────────────────────
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181   # port Kafka talks to ZooKeeper on
+      ZOOKEEPER_TICK_TIME: 2000     # heartbeat interval in ms
+    ports:
+      - "2181:2181"
+
+  # ─────────────────────────────────────────
+  # KAFKA BROKER
+  # The actual message server.
+  # Receives messages from producers,
+  # stores them, delivers to consumers.
+  # ─────────────────────────────────────────
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"             # port your Python code connects to
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181          # talk to zookeeper
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1        # 1 = single broker (dev only)
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'          # auto-create topics

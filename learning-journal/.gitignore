@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Mac
+.DS_Store
+
+# API Keys — never commit these
+.env
+.env.*
+secrets.py
