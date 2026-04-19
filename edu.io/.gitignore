@@ -1,0 +1,6 @@
+# Ignore all PDF files — originals and merged are too large for git
+*.pdf
+*.PDF
+
+# Ignore venv
+.venv/
